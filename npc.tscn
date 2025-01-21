@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bi7asst42wti8"]
+
+[ext_resource type="Script" path="res://npc.gd" id="1_c0nfu"]
+[ext_resource type="Script" path="res://detection_cone.gd" id="2_trck3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dncjq"]
+
+[node name="NPC" type="CharacterBody2D"]
+script = ExtResource("1_c0nfu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dncjq")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 600)
+
+[node name="Detection_cone" type="Area2D" parent="."]
+script = ExtResource("2_trck3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Detection_cone"]
+
+[node name="Polygon2D" type="Polygon2D" parent="Detection_cone"]
+
+[connection signal="body_entered" from="Detection_cone" to="." method="_on_detection_cone_body_entered"]
+[connection signal="body_exited" from="Detection_cone" to="." method="_on_detection_cone_body_exited"]

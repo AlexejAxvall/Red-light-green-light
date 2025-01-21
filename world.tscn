@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://xfxh13xkodtq"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_0j2b1"]
+[ext_resource type="PackedScene" uid="uid://dg6uoitk2puip" path="res://player.tscn" id="1_uvb0j"]
+[ext_resource type="PackedScene" uid="uid://bi7asst42wti8" path="res://npc.tscn" id="2_lrfp5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7nyqj"]
+size = Vector2(159, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l258j"]
+size = Vector2(1191.5, 87)
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_0j2b1")
+
+[node name="Player" parent="." instance=ExtResource("1_uvb0j")]
+position = Vector2(600, 600)
+
+[node name="NPC" parent="." instance=ExtResource("2_lrfp5")]
+position = Vector2(600, 20)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(419, 378)
+shape = SubResource("RectangleShape2D_7nyqj")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(583.75, 0)
+shape = SubResource("RectangleShape2D_l258j")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 370.0
+offset_top = 192.0
+offset_right = 833.0
+offset_bottom = 421.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
